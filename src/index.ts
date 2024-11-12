@@ -1,6 +1,7 @@
 import { createRoute, OpenAPIHono } from "@hono/zod-openapi";
 import { ParamSchema } from "./inputs";
 import { UserSchema } from "./outputs";
+import { swaggerUI } from "@hono/swagger-ui";
 
 const app = new OpenAPIHono();
 
@@ -65,5 +66,12 @@ app.doc("/doc", {
     title: "My HONO API",
   },
 });
+
+app.get(
+  "/ui",
+  swaggerUI({
+    url: "/doc",
+  })
+);
 
 export default app;
